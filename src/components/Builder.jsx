@@ -2,14 +2,10 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
 
-const Builder = ({ onElementSelect, elements, setElements }) => (
+const Builder = () => (
   <div className="flex">
     <Sidebar />
-    <Canvas
-      onElementSelect={onElementSelect}
-      elements={elements}
-      setElements={setElements}
-    />
+    <Canvas />
   </div>
 );
 
