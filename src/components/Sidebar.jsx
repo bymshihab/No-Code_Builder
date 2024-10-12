@@ -2,18 +2,8 @@ import React, { useState } from "react";
 import TextSettings from "./TextSettings";
 import ImageSettings from "./ImageSettings";
 
-const Sidebar = () => {
+const Sidebar = ({ onAddText }) => {
   const [selectedElement, setSelectedElement] = useState(null);
-  const [text, setText] = useState("");
-  const [imageSrc, setImageSrc] = useState("");
-
-  const handleTextChange = (newText) => {
-    setText(newText);
-  };
-
-  const handleImageChange = (url) => {
-    setImageSrc(url);
-  };
 
   return (
     <div className="flex">
@@ -36,12 +26,8 @@ const Sidebar = () => {
       </div>
 
       <div className="w-3/4 p-4">
-        {selectedElement === "Text" && (
-          <TextSettings onTextChange={handleTextChange} />
-        )}
-        {selectedElement === "Image" && (
-          <ImageSettings onImageChange={handleImageChange} />
-        )}
+        {selectedElement === "Text" && <TextSettings onAddText={onAddText} />}
+        {selectedElement === "Image" && <ImageSettings />}
       </div>
     </div>
   );

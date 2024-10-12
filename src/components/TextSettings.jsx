@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TextSettings = ({ onTextChange }) => {
+const TextSettings = ({ onAddText }) => {
   const [text, setText] = useState("");
   const [fontWeight, setFontWeight] = useState("normal");
   const [fontStyle, setFontStyle] = useState("normal");
@@ -9,7 +9,23 @@ const TextSettings = ({ onTextChange }) => {
 
   const handleTextChange = (e) => {
     setText(e.target.value);
-    onTextChange(e.target.value); // Propagate text change to the parent
+  };
+
+  const handleAddText = () => {
+    const defaultStyle = {
+      fontWeight: fontWeight || "normal",
+      fontStyle: fontStyle || "normal",
+      textDecoration: textDecoration || "none",
+      textAlign: textAlign || "left",
+    };
+    onAddText(text, defaultStyle);
+
+    // Reset settings to default values
+    setText("");
+    setFontWeight("normal");
+    setFontStyle("normal");
+    setTextDecoration("none");
+    setTextAlign("left");
   };
 
   return (
@@ -75,6 +91,13 @@ const TextSettings = ({ onTextChange }) => {
       >
         Preview: {text || "Your text will appear here."}
       </div>
+
+      <button
+        onClick={handleAddText}
+        className="bg-green-500 text-white px-4 py-2 rounded mt-5"
+      >
+        Add Text
+      </button>
     </div>
   );
 };
