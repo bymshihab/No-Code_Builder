@@ -6,7 +6,7 @@
 
 ![No-Code Builder Preview](./public/generatedHTML.png)
 
-A simple no-code builder application where users can easily design and add styled text and images to a canvas, preview the design on mobile, and view the generated source code.
+I developed a no-code builder where users can add styled text (bold, italic, underline) and images with adjustable height, width, and alignment, displaying them on a canvas. The top bar includes a Preview button, which switches to a mobile view of the canvas elements, and a "See Source Code" button to view the HTML/CSS structure of the canvas content.
 
 ## Features
 
