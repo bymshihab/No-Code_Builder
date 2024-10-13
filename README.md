@@ -2,7 +2,7 @@
 
 ![No-Code Builder Preview](./public/canvas.png)
 
-![No-Code Builder Preview](./preview.png)
+![No-Code Builder Preview](./public/preview.png)
 
 ![No-Code Builder Preview](./public/generatedHTML.png)
 
