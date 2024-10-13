@@ -3,6 +3,10 @@ import React from "react";
 
 const SourceCode = ({ elements }) => {
   const generateHTMLCode = () => {
+    if (elements.length === 0) {
+      return "The canvas is empty. No elements to display.";
+    }
+
     const bodyContent = elements
       .map((element) => {
         if (element.type === "text") {
