@@ -29,3 +29,13 @@ I developed a no-code builder where users can add styled text (bold, italic, und
    ```bash
    git clone https://github.com/username/no-code-builder.git
    ```
+2. Run this project:
+
+   ```bash
+   npm install
+   ```
+
+   ```bash
+   npm start
+
+   ```
