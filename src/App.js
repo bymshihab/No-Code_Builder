@@ -1,11 +1,12 @@
+// Updated App Component
 import React, { useState } from "react";
 import TopBar from "./components/TopBar";
 import Builder from "./components/Builder";
-import PreviewModal from "./components/PreviewModal"; // Import the PreviewModal component
+import PreviewModal from "./components/PreviewModal";
 
 function App() {
-  const [elements, setElements] = useState([]); // State to hold the elements
-  const [isPreviewOpen, setPreviewOpen] = useState(false); // State for modal visibility
+  const [elements, setElements] = useState([]);
+  const [isPreviewOpen, setPreviewOpen] = useState(false);
 
   const handleAddText = (text, style) => {
     setElements((prevElements) => [
@@ -16,7 +17,7 @@ function App() {
 
   const handleAddImage = (imageSettings) => {
     const newElement = {
-      id: Date.now(), // Unique ID based on timestamp
+      id: Date.now(),
       type: "image",
       src: imageSettings.src,
       width: imageSettings.width,
@@ -27,23 +28,22 @@ function App() {
     setElements((prevElements) => [...prevElements, newElement]);
   };
 
-  const openPreview = () => setPreviewOpen(true); // Function to open the preview modal
-  const closePreview = () => setPreviewOpen(false); // Function to close the preview modal
+  const openPreview = () => setPreviewOpen(true);
+  const closePreview = () => setPreviewOpen(false);
 
   return (
     <div>
-      <TopBar onPreviewClick={openPreview} /> {/* Pass function to TopBar */}
+      <TopBar onPreviewClick={openPreview} elements={elements} />{" "}
+      {/* Pass elements */}
       <Builder
         onAddText={handleAddText}
         onAddImage={handleAddImage}
         elements={elements}
-      />{" "}
-      {/* Pass props to Builder */}
-      {/* Preview Modal */}
+      />
       <PreviewModal
         isOpen={isPreviewOpen}
         onClose={closePreview}
-        elements={elements} // Pass elements to PreviewModal
+        elements={elements}
       />
     </div>
   );
