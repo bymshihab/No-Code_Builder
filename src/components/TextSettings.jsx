@@ -29,33 +29,35 @@ const TextSettings = ({ onAddText }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h3 className="text-lg font-semibold mb-2">Text Settings</h3>
+    <div className="p-6 bg-white rounded-lg shadow-md w-[25rem]">
+      <h3 className="text-xl font-semibold mb-4">Text Settings</h3>
       <input
         type="text"
         placeholder="Enter your text"
         value={text}
         onChange={handleTextChange}
-        className="mb-4 p-2 border w-full"
+        className="mb-4 p-3 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
       />
       <div className="flex space-x-2 mb-4">
         <button
           onClick={() =>
             setFontWeight(fontWeight === "bold" ? "normal" : "bold")
           }
-          className={`p-2 border ${fontWeight === "bold" ? "bg-gray-300" : ""}`}
+          className={`p-3 border rounded-lg border-gray-300 transition duration-200 ${
+            fontWeight === "bold" ? "bg-gray-300" : ""
+          }`}
         >
-          B
+          <span className="font-bold">B</span>
         </button>
         <button
           onClick={() =>
             setFontStyle(fontStyle === "italic" ? "normal" : "italic")
           }
-          className={`p-2 border ${
+          className={`p-3 border rounded-lg border-gray-300 transition duration-200 ${
             fontStyle === "italic" ? "bg-gray-300" : ""
           }`}
         >
-          I
+          <span className="italic">I</span>
         </button>
         <button
           onClick={() =>
@@ -63,18 +65,18 @@ const TextSettings = ({ onAddText }) => {
               textDecoration === "underline" ? "none" : "underline"
             )
           }
-          className={`p-2 border ${
+          className={`p-3 border rounded-lg border-gray-300 transition duration-200 ${
             textDecoration === "underline" ? "bg-gray-300" : ""
           }`}
         >
-          U
+          <span className="underline">U</span>
         </button>
       </div>
       <div className="mb-4">
         <select
           value={textAlign}
           onChange={(e) => setTextAlign(e.target.value)}
-          className="p-2 border"
+          className="p-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
         >
           <option value="left">Align Left</option>
           <option value="center">Align Center</option>
@@ -88,16 +90,18 @@ const TextSettings = ({ onAddText }) => {
           textDecoration: textDecoration,
           textAlign: textAlign,
         }}
+        className="mb-4 text-gray-700"
       >
-        Preview: {text || "Your text will appear here."}
+        <strong>Preview:</strong> {text || "Your text will appear here."}
       </div>
-
-      <button
-        onClick={handleAddText}
-        className="bg-green-500 text-white px-4 py-2 rounded mt-5"
-      >
-        Add Text
-      </button>
+      <div className="flex justify-end">
+        <button
+          onClick={handleAddText}
+          className="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition duration-200"
+        >
+          Add Text
+        </button>
+      </div>
     </div>
   );
 };

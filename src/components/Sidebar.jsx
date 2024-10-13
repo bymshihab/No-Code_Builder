@@ -3,7 +3,8 @@ import TextSettings from "./TextSettings";
 import ImageSettings from "./ImageSettings";
 
 const Sidebar = ({ onAddText, onAddImage }) => {
-  const [selectedElement, setSelectedElement] = useState(null);
+  // Set "Text" as the default selected element
+  const [selectedElement, setSelectedElement] = useState("Text");
 
   return (
     <div className="flex">
@@ -12,20 +13,24 @@ const Sidebar = ({ onAddText, onAddImage }) => {
         <div className="flex flex-col space-y-4">
           <div
             onClick={() => setSelectedElement("Text")}
-            className="p-4 bg-white rounded shadow cursor-pointer"
+            className={`p-4 rounded shadow cursor-pointer transition duration-200 ${
+              selectedElement === "Text" ? "bg-blue-200" : "bg-white"
+            }`}
           >
-            Text Element
+            Text
           </div>
           <div
             onClick={() => setSelectedElement("Image")}
-            className="p-4 bg-white rounded shadow cursor-pointer"
+            className={`p-4 rounded shadow cursor-pointer transition duration-200 ${
+              selectedElement === "Image" ? "bg-blue-200" : "bg-white"
+            }`}
           >
-            Image Element
+            Image
           </div>
         </div>
       </div>
 
-      <div className="w-3/4 p-4">
+      <div className="p-4 w-[29rerm]">
         {selectedElement === "Text" && <TextSettings onAddText={onAddText} />}
         {selectedElement === "Image" && (
           <ImageSettings onAddImage={onAddImage} />

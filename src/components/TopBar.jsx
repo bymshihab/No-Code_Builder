@@ -8,14 +8,14 @@ const TopBar = ({ onPreviewClick, elements }) => {
       <h1 className="text-lg font-bold">No-Code Builder</h1>
       <div>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+          className="bg-blue-400 text-white px-4 py-2 rounded mr-2"
           onClick={onPreviewClick}
         >
           Preview
         </button>
 
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded"
+          className="bg-teal-700 text-white px-4 py-2 rounded"
           onClick={() => document.getElementById("my_modal_1").showModal()}
         >
           See Source Code

@@ -29,11 +29,15 @@ const ImageSettings = ({ onAddImage }) => {
       setAlign("left");
     }
   };
-
+  // class="file-input file-input-bordered w-full max-w-xs"
   return (
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Add Image</h3>
-      <input type="file" onChange={handleImageUpload} />
+    <div className="p-6 bg-white rounded-lg shadow-md  w-full">
+      <h3 className="text-xl font-semibold mb-4">Add Image</h3>
+      <input
+        type="file"
+        onChange={handleImageUpload}
+        className="mb-4 border rounded-lg p-2 w-full bg-gray-100 cursor-pointer file-input file-input-bordered "
+      />
       {imageSrc && (
         <div
           className={`mb-4 ${
@@ -41,7 +45,7 @@ const ImageSettings = ({ onAddImage }) => {
               ? "flex justify-center"
               : align === "right"
               ? "flex justify-end"
-              : ""
+              : "flex justify-start"
           }`}
         >
           <img
@@ -52,43 +56,45 @@ const ImageSettings = ({ onAddImage }) => {
               height: imageHeight ? `${imageHeight}px` : "100px", // Use input height or default
               objectFit: "contain", // Ensure the image fits within the specified dimensions
             }}
+            className="rounded-lg shadow-sm"
           />
         </div>
       )}
-      <div className="flex space-x-2 mb-4">
+      <div className="flex space-x-2 mb-4  ">
         <input
           type="text"
-          placeholder="Width"
+          placeholder="Width (px)"
           value={imageWidth}
           onChange={(e) => setImageWidth(e.target.value)}
-          className="p-2 border"
+          className="p-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2"
         />
         <input
           type="text"
-          placeholder="Height"
+          placeholder="Height (px)"
           value={imageHeight}
           onChange={(e) => setImageHeight(e.target.value)}
-          className="p-2 border"
+          className="p-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
         <select
           value={align}
           onChange={(e) => setAlign(e.target.value)}
-          className="p-2 border"
+          className="p-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
         >
           <option value="left">Align Left</option>
           <option value="center">Align Center</option>
           <option value="right">Align Right</option>
         </select>
       </div>
-
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mt-5"
-        onClick={handleAddImage}
-      >
-        Add Image
-      </button>
+      <div className="flex justify-end">
+        <button
+          className="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition duration-200"
+          onClick={handleAddImage}
+        >
+          Add Image
+        </button>
+      </div>
     </div>
   );
 };
