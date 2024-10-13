@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextSettings from "./TextSettings";
 import ImageSettings from "./ImageSettings";
 
-const Sidebar = ({ onAddText }) => {
+const Sidebar = ({ onAddText, onAddImage }) => {
   const [selectedElement, setSelectedElement] = useState(null);
 
   return (
@@ -27,7 +27,9 @@ const Sidebar = ({ onAddText }) => {
 
       <div className="w-3/4 p-4">
         {selectedElement === "Text" && <TextSettings onAddText={onAddText} />}
-        {selectedElement === "Image" && <ImageSettings />}
+        {selectedElement === "Image" && (
+          <ImageSettings onAddImage={onAddImage} />
+        )}
       </div>
     </div>
   );

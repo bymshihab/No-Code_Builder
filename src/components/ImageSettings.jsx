@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ImageSettings = ({ onImageChange }) => {
+const ImageSettings = ({ onAddImage }) => {
   const [imageSrc, setImageSrc] = useState("");
   const [imageWidth, setImageWidth] = useState("");
   const [imageHeight, setImageHeight] = useState("");
@@ -11,26 +11,49 @@ const ImageSettings = ({ onImageChange }) => {
     if (file) {
       const url = URL.createObjectURL(file);
       setImageSrc(url);
-      onImageChange(url);
+    }
+  };
+
+  const handleAddImage = () => {
+    if (imageSrc) {
+      onAddImage({
+        src: imageSrc,
+        width: parseInt(imageWidth) || 100, // Default to 100 if parsing fails
+        height: parseInt(imageHeight) || 100, // Default to 100 if parsing fails
+        align,
+      });
+      // Reset the fields after adding
+      setImageSrc("");
+      setImageWidth("");
+      setImageHeight("");
+      setAlign("left");
     }
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h3 className="text-lg font-semibold mb-2">Image Settings</h3>
-      <input type="file" onChange={handleImageUpload} className="mb-4" />
+    <div>
+      <h3 className="text-lg font-semibold mb-2">Add Image</h3>
+      <input type="file" onChange={handleImageUpload} />
       {imageSrc && (
-        <img
-          src={imageSrc}
-          alt="Uploaded"
-          className={`mb-4 w-${imageWidth} h-${imageHeight} ${
+        <div
+          className={`mb-4 ${
             align === "center"
-              ? "mx-auto"
+              ? "flex justify-center"
               : align === "right"
-              ? "float-right"
+              ? "flex justify-end"
               : ""
           }`}
-        />
+        >
+          <img
+            src={imageSrc}
+            alt="Uploaded"
+            style={{
+              width: imageWidth ? `${imageWidth}px` : "100px", // Use input width or default
+              height: imageHeight ? `${imageHeight}px` : "100px", // Use input height or default
+              objectFit: "contain", // Ensure the image fits within the specified dimensions
+            }}
+          />
+        </div>
       )}
       <div className="flex space-x-2 mb-4">
         <input
@@ -60,8 +83,11 @@ const ImageSettings = ({ onImageChange }) => {
         </select>
       </div>
 
-      <button className="bg-blue-500 text-white px-4 py-2 rounded mt-5">
-        Add Img
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-5"
+        onClick={handleAddImage}
+      >
+        Add Image
       </button>
     </div>
   );
