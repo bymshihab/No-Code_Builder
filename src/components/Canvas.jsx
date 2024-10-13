@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Canvas = ({ elements }) => {
   const [positions, setPositions] = useState(
@@ -8,38 +8,61 @@ const Canvas = ({ elements }) => {
     }, {})
   );
 
-  const handleDragStart = (e, id) => {
-    e.dataTransfer.setData("text/plain", id);
+  const [isDragging, setIsDragging] = useState(false);
+  const [draggingId, setDraggingId] = useState(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (e, id) => {
+    setIsDragging(true);
+    setDraggingId(id);
+    const rect = e.target.getBoundingClientRect();
+    setOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  const handleMouseMove = (e) => {
+    if (!isDragging || draggingId === null) return;
 
-  const handleDrop = (e) => {
-    const id = e.dataTransfer.getData("text");
-    const x = e.clientX;
-    const y = e.clientY;
+    // Calculate new position based on mouse movement
+    const newX = e.clientX - offset.x;
+    const newY = e.clientY - offset.y;
 
     setPositions((prevPositions) => ({
       ...prevPositions,
-      [id]: { x: x - 50, y: y - 10 }, // Adjust to position near cursor
+      [draggingId]: { x: newX, y: newY },
     }));
   };
 
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    setDraggingId(null);
+  };
+
+  // Attach mousemove and mouseup events to the document
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    } else {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
+
   return (
-    <div
-      className="flex-1 p-4 bg-gray-50 min-h-screen relative"
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-    >
+    <div className="flex-1 p-4 bg-gray-50 min-h-screen relative">
       {elements.map((element) => {
         if (element.type === "text") {
           return (
             <div
               key={element.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, element.id)}
+              onMouseDown={(e) => handleMouseDown(e, element.id)}
               style={{
                 fontWeight: element.style?.fontWeight || "normal",
                 fontStyle: element.style?.fontStyle || "normal",
@@ -61,26 +84,14 @@ const Canvas = ({ elements }) => {
               key={element.id}
               src={element.src}
               alt="Canvas Element"
-              draggable
-              onDragStart={(e) => handleDragStart(e, element.id)}
+              onMouseDown={(e) => handleMouseDown(e, element.id)}
               style={{
                 width: element.width,
                 height: element.height,
                 position: "absolute",
                 cursor: "pointer",
-                left:
-                  element.align === "right"
-                    ? 0
-                    : element.align === "center"
-                    ? "50%"
-                    : "auto",
-                transform:
-                  element.align === "center" ? "translateX(-50%)" : "none",
-                right: element.align === "right" ? 0 : "auto",
+                left: positions[element.id]?.x || 0,
                 top: positions[element.id]?.y || 0,
-                display: element.align === "center" ? "block" : "inline-block",
-                float: element.align,
-                margin: element.align === "center" ? "0 auto" : "0",
               }}
               className="draggable"
             />
