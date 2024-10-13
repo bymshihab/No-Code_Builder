@@ -1,5 +1,11 @@
 # No-Code Builder
 
+![No-Code Builder Preview](./public/canvas.png)
+
+![No-Code Builder Preview](./preview.png)
+
+![No-Code Builder Preview](./public/generatedHTML.png)
+
 A simple no-code builder application where users can easily design and add styled text and images to a canvas, preview the design on mobile, and view the generated source code.
 
 ## Features
